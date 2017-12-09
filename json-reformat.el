@@ -196,6 +196,15 @@ and `json-reformat:pretty-string?'."
     (save-excursion
       (save-restriction
         (narrow-to-region begin end)
+        ;;Start add 2017-12-09 by chou
+        (goto-char (point-min))
+        (while (search-forward "u'" nil t) (replace-match "'" nil t))
+        (goto-char (point-min))
+        (while (search-forward "'" nil t) (replace-match "\"" nil t))
+        (goto-char (point-min))
+        (while (re-search-forward "Decimal(\\(.*?\\))" nil t) (replace-match "\\1"))
+        ;;End
+
         (goto-char (point-min))
         (let (reformatted)
           (condition-case errvar
